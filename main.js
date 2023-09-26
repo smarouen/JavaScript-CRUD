@@ -143,17 +143,32 @@ tableBody.addEventListener("click", function(event) {
 
 
 function deleteTableRow(row) {
-    row.remove();
+    const rowIndex = row.rowIndex - 1; 
+    const confirmDelete = confirm("Are you sure you want to delete this row?");
+
+    if (confirmDelete) {
+        // Remove the row from the table
+        row.remove();
+
+        // Remove the corresponding data from local storage
+        removeBookFromLocalStorage(rowIndex);
+    }
+}
+
+function removeBookFromLocalStorage(index) {
+    if (localStorage.getItem("books")) {
+        const books = JSON.parse(localStorage.getItem("books"));
+
+        if (index >= 0 && index < books.length) {
+            books.splice(index, 1);
+            localStorage.setItem("books", JSON.stringify(books));
+        }
+    }
 }
 
 tableBody.addEventListener("click", function(event) {
     if (event.target.classList.contains("btn-danger")) {
         const row = event.target.closest("tr");
-
-        const confirmDelete = confirm("Are you sure you want to delete this row?");
-
-        if (confirmDelete) {
-            deleteTableRow(row);
-        }
+        deleteTableRow(row);
     }
 });
