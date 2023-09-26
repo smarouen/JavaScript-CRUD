@@ -144,7 +144,7 @@ tableBody.addEventListener("click", function(event) {
 
 function deleteTableRow(row) {
     const rowIndex = row.rowIndex - 1; 
-    const confirmDelete = confirm("Are you sure you want to delete this row?");
+    const confirmDelete = confirm("Are you sure you want to delete this?");
 
     if (confirmDelete) {
         // Remove the row from the table
